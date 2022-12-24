@@ -11,7 +11,7 @@ pub fn check(board: &Board, team: Chip, (x, y): (usize, usize)) -> bool {
 pub fn check_x(board: &Board, team: Chip, x: usize) -> bool {
     let mut count = 0;
 
-    for y in 0..board.y() {
+    for y in 0..board.y_0() {
         if let Some(chip) = board.get((x, y)) {
             if team == chip {
                 count += 1;
@@ -33,7 +33,7 @@ pub fn check_x(board: &Board, team: Chip, x: usize) -> bool {
 pub fn check_y(board: &Board, team: Chip, y: usize) -> bool {
     let mut count = 0;
 
-    for x in 0..board.x() {
+    for x in 0..board.x_0() {
         if let Some(chip) = board.get((x, y)) {
             if team == chip {
                 count += 1;
@@ -61,7 +61,7 @@ pub fn check_asc(board: &Board, team: Chip, (x, y): (usize, usize)) -> bool {
     };
 
     // calculate length of the diagonal
-    let n = min(board.x() - x, board.y() - y);
+    let n = min(board.x_0() - x, board.y_0() - y);
 
     let mut count = 0;
     for b in 0..n {
@@ -84,17 +84,17 @@ pub fn check_asc(board: &Board, team: Chip, (x, y): (usize, usize)) -> bool {
 }
 
 pub fn check_des(board: &Board, team: Chip, (x, y): (usize, usize)) -> bool {
-    let dy = board.y() - y;
+    let dy = board.y_0() - y;
 
     // overshadow previous x and y 
     let (x, y) = match x.cmp(&dy) {
-        Ordering::Greater => (x - dy, board.y()),
+        Ordering::Greater => (x - dy, board.y_0()),
         Ordering::Less => (0, y + x),
-        Ordering::Equal => (0, board.y()),
+        Ordering::Equal => (0, board.y_0()),
     };
 
     // calculate length of the diagonal
-    let n = min(board.x() - x, y) + 1;
+    let n = min(board.x_0() - x, y) + 1;
 
     let mut count = 0;
     for b in 0..n {

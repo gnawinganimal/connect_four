@@ -14,11 +14,17 @@ impl Chip {
     }
 }
 
+impl From<Chip> for char {
+    fn from(value: Chip) -> Self {
+        match value {
+            Chip::A => 'A',
+            Chip::B => 'B',
+        }
+    }
+}
+
 impl Display for Chip {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "{}", match self {
-            Self::A => 'A',
-            Self::B => 'B',
-        })
+        write!(f, "{}", char::from(*self))
     }
 }
